@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, BackHandler, Alert } from "react-native";
-import { Block, GooglePlaceInput, Text, DateTimePicker } from "../Components";
-import DateTimePicker2 from "../Components/DateTimePicker2";
+import { Block, GooglePlaceInput, Text } from "../Components";
+import DateTimePicker from "../Components/DateTimePicker";
 import { theme } from "../Config";
 import Slider from "@react-native-community/slider";
 
@@ -114,8 +114,7 @@ export default class Browse extends Component {
             </Block>
           </Block>
           <Block style={styles.input_container}>
-            {/* <DateTimePicker /> */}
-            <DateTimePicker2 />
+            <DateTimePicker />
           </Block>
         </Block>
       </Block>
