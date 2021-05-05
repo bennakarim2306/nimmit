@@ -114,7 +114,9 @@ export default class Browse extends Component {
             </Block>
           </Block>
           <Block style={styles.input_container}>
-            <DateTimePicker />
+            <DateTimePicker mode="date" />
+            <DateTimePicker mode="time" />
+            {/* <DateTimePicker mode="time" /> */}
           </Block>
         </Block>
       </Block>

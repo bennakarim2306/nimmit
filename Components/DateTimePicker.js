@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Button, Text, TextInput } from "react-native";
+import { Button, Text, TextInput, Pressable, View } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Block from "./Block";
+import Input from "./Input";
 
-const DateTimePicker = () => {
+const DateTimePicker = (mode) => {
+  console.log(JSON.stringify(mode.mode));
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [date, setDate] = useState(new Date());
@@ -45,28 +47,37 @@ const DateTimePicker = () => {
 
   return (
     <Block>
-      <Block>
-        <Button title="Choose date" onPress={showDatePicker} />
-        <DateTimePickerModal
-          isVisible={isDatePickerVisible}
-          mode="date"
-          minimumDate={Date.parse(new Date())}
-          onConfirm={handleDateConfirm}
-          onCancel={hideDatePicker}
-        />
-        <TextInput value={formatDate(date)} />
-      </Block>
-      <Block>
-        <Button title="Choose time" onPress={showTimePicker} />
-        <DateTimePickerModal
-          isVisible={isTimePickerVisible}
-          mode="time"
-          minimumDate={Date.parse(new Date())}
-          onConfirm={handleTimeConfirm}
-          onCancel={hideTimePicker}
-        />
-        <TextInput value={formatTime(time)} />
-      </Block>
+      {mode.mode == "date" ? (
+        <Block>
+          <Pressable onPress={showDatePicker}>
+            <View pointerEvents="none">
+              <Input value={formatDate(date)} />
+            </View>
+          </Pressable>
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="date"
+            minimumDate={Date.now()}
+            onConfirm={handleDateConfirm}
+            onCancel={hideDatePicker}
+          />
+        </Block>
+      ) : (
+        <Block>
+          <Pressable onPress={showTimePicker}>
+            <View pointerEvents="none">
+              <Input value={formatTime(time)} />
+            </View>
+          </Pressable>
+          <DateTimePickerModal
+            isVisible={isTimePickerVisible}
+            mode="time"
+            // minimumDate={Date.parse(new Date())}
+            onConfirm={handleTimeConfirm}
+            onCancel={hideTimePicker}
+          />
+        </Block>
+      )}
     </Block>
   );
 };
