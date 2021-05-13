@@ -1,37 +1,85 @@
-import RNDateTimePicker from "@react-native-community/datetimepicker";
-import React,{ Component, useState } from "react";
+import React, { useState } from "react";
+import { Button, Text, TextInput, Pressable, View } from "react-native";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import Block from "./Block";
+import Input from "./Input";
 
-export default class DateTimePicker extends Component {
+const DateTimePicker = (mode) => {
+  console.log(JSON.stringify(mode.mode));
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState(new Date());
 
-    constructor () {
-        [date, setDate] = useState(new Date(1598051730000));
-        [mode, setMode] = useState('date');
-        [show, setShow] = useState(false);
-    }
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
 
-    onChange = (event, selectedDate) => {
-      const currentDate = selectedDate || this.date;
-      setShow(Platform.OS === 'ios');
-      setDate(currentDate);
-    }
-  
-    showMode = (currentMode) => {
-      setShow(true);
-      setMode(currentMode);
-    }
-  
-    showDatepicker = () => {
-      showMode('date');
-    }
-  
-    showTimepicker = () => {
-      showMode('time');
-    }
+  const showTimePicker = () => {
+    setTimePickerVisibility(true);
+  };
 
-    render() {
-        console.log(`rendering`)
-        (
-            <RNDateTimePicker mode="date" value={new Date()} />
-        )
-    }
-}
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const hideTimePicker = () => {
+    setTimePickerVisibility(false);
+  };
+
+  const handleDateConfirm = (date) => {
+    setDate(date);
+    hideDatePicker();
+  };
+
+  const handleTimeConfirm = (time) => {
+    setTime(time);
+    hideTimePicker();
+  };
+
+  const formatDate = (date) => {
+    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+  };
+
+  const formatTime = (time) => {
+    return `${time.getHours()}:${time.getMinutes()}`;
+  };
+
+  return (
+    <Block>
+      {mode.mode == "date" ? (
+        <Block>
+          <Pressable onPress={showDatePicker}>
+            <View pointerEvents="none">
+              <Input value={formatDate(date)} />
+            </View>
+          </Pressable>
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="date"
+            minimumDate={Date.now()}
+            onConfirm={handleDateConfirm}
+            onCancel={hideDatePicker}
+          />
+        </Block>
+      ) : (
+        <Block>
+          <Pressable onPress={showTimePicker}>
+            <View pointerEvents="none">
+              <Input value={formatTime(time)} />
+            </View>
+          </Pressable>
+          <DateTimePickerModal
+            isVisible={isTimePickerVisible}
+            mode="time"
+            // minimumDate={Date.parse(new Date())}
+            onConfirm={handleTimeConfirm}
+            onCancel={hideTimePicker}
+          />
+        </Block>
+      )}
+    </Block>
+  );
+};
+
+export default DateTimePicker;

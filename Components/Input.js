@@ -9,7 +9,7 @@ import { theme } from "../Config";
 
 export default class Input extends Component {
   state = {
-    toggleSecure: false
+    toggleSecure: false,
   };
 
   renderLabel() {
@@ -74,7 +74,7 @@ export default class Input extends Component {
     const inputStyles = [
       styles.input,
       error && { borderColor: theme.colors.accent },
-      style
+      style,
     ];
 
     const inputType = email
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     fontSize: theme.sizes.font,
     fontWeight: "500",
     color: theme.colors.black,
-    height: theme.sizes.base * 3
+    height: theme.sizes.base * 3,
   },
   toggle: {
     position: "absolute",
@@ -120,6 +120,6 @@ const styles = StyleSheet.create({
     width: theme.sizes.base * 2,
     height: theme.sizes.base * 2,
     top: theme.sizes.base,
-    right: 0
-  }
+    right: 0,
+  },
 });
