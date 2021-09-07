@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Button, Text, TextInput, Pressable, View } from "react-native";
+import { Pressable , StyleSheet} from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Block from "./Block";
 import Input from "./Input";
+import Button from "./Button";
 
-const DateTimePicker = (mode) => {
-  console.log(JSON.stringify(mode.mode));
+const DateTimePicker = (props) => {
+  // console.log(JSON.stringify(props));
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [date, setDate] = useState(new Date());
@@ -38,7 +39,7 @@ const DateTimePicker = (mode) => {
   };
 
   const formatDate = (date) => {
-    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
   };
 
   const formatTime = (time) => {
@@ -47,32 +48,30 @@ const DateTimePicker = (mode) => {
 
   return (
     <Block>
-      {mode.mode == "date" ? (
+      {props.props.mode == "date" ? (
         <Block>
-          <Pressable onPress={showDatePicker}>
-            <View pointerEvents="none">
-              <Input value={formatDate(date)} />
-            </View>
-          </Pressable>
+          <Button onPress={showDatePicker}>
+            <Block pointerEvents="none">
+              <Input style={{...styles.text_container, fontSize: 25, alignSelf: "center"}} value={formatDate(date)} />
+            </Block>
+          </Button>
           <DateTimePickerModal
             isVisible={isDatePickerVisible}
             mode="date"
-            minimumDate={Date.now()}
             onConfirm={handleDateConfirm}
             onCancel={hideDatePicker}
           />
         </Block>
       ) : (
         <Block>
-          <Pressable onPress={showTimePicker}>
-            <View pointerEvents="none">
-              <Input value={formatTime(time)} />
-            </View>
-          </Pressable>
+          <Button onPress={showTimePicker}>
+            <Block pointerEvents="none">
+              <Input style={{...styles.text_container, fontSize: 20}} value={formatTime(time)} />
+            </Block>
+          </Button>
           <DateTimePickerModal
             isVisible={isTimePickerVisible}
             mode="time"
-            // minimumDate={Date.parse(new Date())}
             onConfirm={handleTimeConfirm}
             onCancel={hideTimePicker}
           />
@@ -81,5 +80,11 @@ const DateTimePicker = (mode) => {
     </Block>
   );
 };
+
+const styles = StyleSheet.create({
+  text_container: {
+    borderWidth: 0
+  }
+});
 
 export default DateTimePicker;

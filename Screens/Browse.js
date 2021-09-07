@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { StyleSheet, BackHandler, Alert } from "react-native";
-import { Block, GooglePlaceInput, Text } from "../Components";
+import { StyleSheet, BackHandler, Alert, CheckBox } from "react-native";
+import { Block, GooglePlaceInput, Text, Switch, Button } from "../Components";
 import DateTimePicker from "../Components/DateTimePicker";
 import { theme } from "../Config";
 import Slider from "@react-native-community/slider";
@@ -13,7 +13,18 @@ export default class Browse extends Component {
   state = {
     rangeA: 0,
     rangeB: 0,
+    rangeTime: 15,
+    isRoutine: true,
+    isSearching: false
   };
+
+  _handleToggleSwitch = () => {
+    const actualValueIsRoutine = this.state.isRoutine;
+    this.setState({
+      isRoutine: !actualValueIsRoutine
+    });
+  }
+
 
   _handleBackButton = () => {
     return Alert.alert(
@@ -43,7 +54,105 @@ export default class Browse extends Component {
     if (slider === 2) {
       this.setState({ rangeB: roundedValue });
     }
+    if (slider === 3) {
+      this.setState({ rangeTime: roundedValue })
+    }
   };
+
+  _dateTimePicker = (props) => {
+    // console.log(`date time picker is rendering`)
+    const styleInside = props.mode === "date" ? { fontSize: 25 } : { fontSize: 15 };
+    return (
+      <Block style={styles.date_time_picker_container}>
+        <DateTimePicker props={{ ...props, style: styleInside }} />
+      </Block>
+    )
+  }
+
+  _weekDaysBox = () => {
+    // console.log(`weekdays box are rendering`)
+    return (
+      <Block style={styles.checkbox_row_container}>
+        <Block style={styles.checkbox_container}>
+          <Text>
+            Mo
+          </Text>
+          <CheckBox
+            key="monday_box"
+            value={false}
+            onValueChange={() => { }}
+            style={styles.checkbox}
+          />
+        </Block>
+        <Block style={styles.checkbox_container}>
+          <Text>
+            Di
+          </Text>
+          <CheckBox
+            key="tuesday_box"
+            value={false}
+            onValueChange={() => { }}
+            style={styles.checkbox}
+          />
+        </Block>
+        <Block style={styles.checkbox_container}>
+          <Text>
+            Mi
+          </Text>
+          <CheckBox
+            key="wednesday_box"
+            value={false}
+            onValueChange={() => { }}
+            style={styles.checkbox}
+          />
+        </Block>
+        <Block style={styles.checkbox_container}>
+          <Text>
+            Do
+          </Text>
+          <CheckBox
+            key="thursday_box"
+            value={false}
+            onValueChange={() => { }}
+            style={styles.checkbox}
+          />
+        </Block>
+        <Block style={styles.checkbox_container}>
+          <Text>
+            Fr
+          </Text>
+          <CheckBox
+            key="friday_box"
+            value={false}
+            onValueChange={() => { }}
+            style={styles.checkbox}
+          />
+        </Block>
+        <Block style={styles.checkbox_container}>
+          <Text>
+            Sa
+          </Text>
+          <CheckBox
+            key="saturday_box"
+            value={false}
+            onValueChange={() => { }}
+            style={styles.checkbox}
+          />
+        </Block>
+        <Block style={styles.checkbox_container}>
+          <Text>
+            So
+          </Text>
+          <CheckBox
+            key="sunday_box"
+            value={false}
+            onValueChange={() => { }}
+            style={styles.checkbox}
+          />
+        </Block>
+      </Block>
+    )
+  }
 
   componentDidMount() {
     BackHandler.addEventListener("hardwareBackPress", this._handleBackButton);
@@ -113,10 +222,66 @@ export default class Browse extends Component {
               </Block>
             </Block>
           </Block>
-          <Block style={styles.input_container}>
-            <DateTimePicker mode="date" />
-            <DateTimePicker mode="time" />
-            {/* <DateTimePicker mode="time" /> */}
+          <Block style={styles.routine_onetime_container}>
+            <Block style={{ flexDirection: "row", flex: 1 }}>
+              <Block style={styles.date_text_container}>
+                <Text h4 bold>
+                  {"  "} Mitfahrtmodus
+                </Text>
+              </Block>
+              <Block style={styles.switch_container}>
+                <Block flex={1}>
+                  <Text>
+                    einmalig {"  "}
+                  </Text>
+                </Block>
+                <Block flex={1}>
+                  <Switch
+                    toggleFunction={this._handleToggleSwitch}
+                    isEnabled={this.state.isRoutine}
+                  />
+                </Block>
+                <Block flex={1}>
+                  <Text>
+                    {"  "} routine
+                  </Text>
+                </Block>
+              </Block>
+            </Block>
+            <Block style={styles.date_time_picker_container}>
+              {this.state.isRoutine ? this._weekDaysBox() : this._dateTimePicker({ mode: "date" })}
+            </Block>
+          </Block>
+          <Block style={styles.date_time_container}>
+            <Block style={styles.time_container}>
+              {this._dateTimePicker({ mode: "time" })}
+            </Block>
+            <Block style={styles.time_slider_container}>
+              <Slider
+                step={0}
+                minimumValue={15}
+                maximumValue={60}
+                value={this.state.rangeA}
+                onValueChange={(val) =>
+                  this._handleSliderValueChanged(val, 3)
+                }
+                onSlidingComplete={console.log("")}
+              />
+            </Block>
+            <Block style={styles.range_container}>
+              <Text>{this.state.rangeTime} min</Text>
+            </Block>
+          </Block>
+          <Block style={styles.query_button_container}>
+            <Button gradient onPress={() => console.log("button for query clicked --- here comes a handler")}>
+                {this.state.isSearching ? (
+                  <ActivityIndicator size="small" color="white" />
+                ) : (
+                  <Text bold white center>
+                    Suche
+                  </Text>
+                )}
+              </Button>
           </Block>
         </Block>
       </Block>
@@ -143,6 +308,19 @@ const styles = StyleSheet.create({
     // backgroundColor: 'grey',
     flex: 1,
   },
+  routine_onetime_container: {
+    flexDirection: "column",
+    padding: "2%",
+    // backgroundColor: 'grey',
+    flex: 1,
+  },
+  date_time_container: {
+    flexDirection: "row",
+    padding: "2%",
+    // backgroundColor: 'grey',
+    flex: 1,
+    alignItems: "center"
+  },
   view_container: {
     marginTop: "7%",
     height: "100%",
@@ -153,6 +331,7 @@ const styles = StyleSheet.create({
   },
   header_text_container: {
     // borderBottomWidth: 1
+    paddingTop: "2%",
     flex: 1,
     alignSelf: "center",
   },
@@ -170,4 +349,43 @@ const styles = StyleSheet.create({
   input_container: {
     flex: 2,
   },
+  date_container: {
+    flex: 1,
+    fontSize: 100
+  },
+  time_container: {
+    flex: 1,
+    alignSelf: "center"
+  },
+  date_time_picker_container: {
+    flex: 3,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    padding: "5%",
+  },
+  switch_container: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  checkbox_row_container: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingTop: "5%"
+  },
+  checkbox_container: {
+    flexDirection: "column",
+    alignItems: "center"
+  },
+  time_slider_container: {
+    // backgroundColor: 'grey',
+    flex: 4,
+    width: "90%",
+  },
+  query_button_container: {
+    flex: 1,
+    paddingLeft: '15%',
+    paddingRight: '15%'
+  }
 });
