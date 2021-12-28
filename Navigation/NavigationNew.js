@@ -11,7 +11,6 @@ import Login from "../Screens/Login";
 import SignUp from "../Screens/SignUp";
 import Forgot from "../Screens/Forgot";
 import Browse from "../Screens/Browse";
-import Settings from "../Screens/Settings";
 import AddDrive from "../Screens/AddDrive";
 import Profile from "../Screens/Profile";
 
