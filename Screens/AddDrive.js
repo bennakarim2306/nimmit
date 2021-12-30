@@ -3,6 +3,11 @@ import { Text, View } from 'react-native'
 import { Block } from '../Components'
 
 export default class AddDrive extends Component {
+
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <Block center middle>

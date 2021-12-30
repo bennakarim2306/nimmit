@@ -1,11 +1,18 @@
 import React, { Component } from "react";
-import { StyleSheet, BackHandler, Alert, CheckBox } from "react-native";
+import { StyleSheet, BackHandler, Alert } from "react-native";
+import CheckBox from "expo-checkbox";
 import { Block, GooglePlaceInput, Text, Switch, Button } from "../Components";
 import DateTimePicker from "../Components/DateTimePicker";
 import { theme } from "../Config";
 import Slider from "@react-native-community/slider";
+import {connect} from "react-redux";
 
-export default class Browse extends Component {
+class Browse extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
   static navigationOptions = {
     headerShown: false,
   };
@@ -261,7 +268,7 @@ export default class Browse extends Component {
                 step={0}
                 minimumValue={15}
                 maximumValue={60}
-                value={this.state.rangeA}
+                value={this.state.rangeTime}
                 onValueChange={(val) =>
                   this._handleSliderValueChanged(val, 3)
                 }
@@ -389,3 +396,11 @@ const styles = StyleSheet.create({
     paddingRight: '15%'
   }
 });
+
+const mapStateToProps = (state) =>  {
+  return {
+    queryResults: state.queryResults
+  }
+}
+
+export default connect(mapStateToProps)(Browse)

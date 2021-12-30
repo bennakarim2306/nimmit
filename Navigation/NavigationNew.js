@@ -15,9 +15,11 @@ import AddDrive from "../Screens/AddDrive";
 import Profile from "../Screens/Profile";
 
 import { theme } from "../Config";
+import ResultScreen from "../Screens/ResultScreen";
 
 
 const LoginStackNavigation = createStackNavigator();
+const BrowseStackNavigation = createStackNavigator();
 const MainTabNavigation = createBottomTabNavigator();
 const {height, width} = Dimensions.get('window');
 
@@ -29,6 +31,15 @@ const LoginNav = () => {
             <LoginStackNavigation.Screen name="SignUp" component={SignUp} options={LoginNavigatorDefaultOptions} />
             <LoginStackNavigation.Screen name="Forgot" component={Forgot} options={LoginNavigatorDefaultOptions} />
         </LoginStackNavigation.Navigator>
+    )
+}
+
+const BrowseNavigation = () => {
+    return(
+        <BrowseNavigation.Navigator>
+            <BrowseNavigation.Screen name="Browse" component={Browse} oprions={BrowseNavigationOptions} />
+            <BrowseNavigation.Screen name="ResultScreen" component={ResultScreen} options={BrowseNavigationOptions} />
+        </BrowseNavigation.Navigator>
     )
 }
 
@@ -83,7 +94,8 @@ class Navigator extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isLoggedIn: state.isLoggedIn
+        isLoggedIn: state.isLoggedIn,
+        queryResults: state.queryResults
     }
 }
 
