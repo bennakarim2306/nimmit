@@ -6,6 +6,7 @@ import DateTimePicker from "../Components/DateTimePicker";
 import { theme } from "../Config";
 import Slider from "@react-native-community/slider";
 import {connect} from "react-redux";
+import { Drives } from "../Resources/mock/Drives"
 
 class Browse extends Component {
 
@@ -161,6 +162,15 @@ class Browse extends Component {
     )
   }
 
+  _handleQuery = () => {
+    const action = {
+      type: 'QUERY_DRIVES',
+      value: Drives
+    }
+    this.props.dispatch(action)
+    this.props.navigation.navigate("ResultScreen");
+  }
+
   componentDidMount() {
     BackHandler.addEventListener("hardwareBackPress", this._handleBackButton);
   }
@@ -181,7 +191,7 @@ class Browse extends Component {
                 {"  "} Meine Adresse
               </Text>
             </Block>
-            <Block style={{ flex: 2 }}>
+            <Block style={{ flex: 2}}>
               <GooglePlaceInput></GooglePlaceInput>
             </Block>
             <Block style={{ flex: 1, flexDirection: "row" }}>
@@ -280,7 +290,7 @@ class Browse extends Component {
             </Block>
           </Block>
           <Block style={styles.query_button_container}>
-            <Button gradient onPress={() => console.log("button for query clicked --- here comes a handler")}>
+            <Button gradient onPress={this._handleQuery}>
                 {this.state.isSearching ? (
                   <ActivityIndicator size="small" color="white" />
                 ) : (
@@ -329,6 +339,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   view_container: {
+    zIndex: -1,
     marginTop: "7%",
     height: "100%",
     width: "100%",
@@ -344,17 +355,16 @@ const styles = StyleSheet.create({
   },
   main_content_container: {
     flex: 13,
+    zIndex: -1
   },
   slider_container: {
     // backgroundColor: 'grey',
     flex: 7,
     width: "90%",
+    zIndex: -1
   },
   range_container: {
     flex: 1,
-  },
-  input_container: {
-    flex: 2,
   },
   date_container: {
     flex: 1,
@@ -370,25 +380,30 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     padding: "5%",
+    zIndex: -1
   },
   switch_container: {
     flex: 1,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
+    zIndex: -1
   },
   checkbox_row_container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingTop: "5%"
+    paddingTop: "5%",
+    zIndex: -1
   },
   checkbox_container: {
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
+    zIndex: -1
   },
   time_slider_container: {
     // backgroundColor: 'grey',
     flex: 4,
     width: "90%",
+    zIndex: -1
   },
   query_button_container: {
     flex: 1,

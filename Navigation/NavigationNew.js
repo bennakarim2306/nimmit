@@ -16,11 +16,12 @@ import Profile from "../Screens/Profile";
 
 import { theme } from "../Config";
 import ResultScreen from "../Screens/ResultScreen";
+import {createDrawerNavigator} from "@react-navigation/drawer";
 
 
 const LoginStackNavigation = createStackNavigator();
 const BrowseStackNavigation = createStackNavigator();
-const MainTabNavigation = createBottomTabNavigator();
+const MainTabNavigation = createDrawerNavigator();
 const {height, width} = Dimensions.get('window');
 
 const LoginNav = () => {
@@ -36,10 +37,10 @@ const LoginNav = () => {
 
 const BrowseNavigation = () => {
     return(
-        <BrowseNavigation.Navigator>
-            <BrowseNavigation.Screen name="Browse" component={Browse} oprions={BrowseNavigationOptions} />
-            <BrowseNavigation.Screen name="ResultScreen" component={ResultScreen} options={BrowseNavigationOptions} />
-        </BrowseNavigation.Navigator>
+        <BrowseStackNavigation.Navigator>
+            <BrowseStackNavigation.Screen name="Browse" component={Browse} options={{headerShown: false}}/>
+            <BrowseStackNavigation.Screen name="ResultScreen" component={ResultScreen} options={{headerShown: false}}/>
+        </BrowseStackNavigation.Navigator>
     )
 }
 
@@ -51,7 +52,7 @@ const MainNav = () => {
             tabBarOptions={{style:{height:'5%'}}}
             sceneContainerStyle={{position: 'absolute', flex: 0, width: width, height: height}}
             >
-                <MainTabNavigation.Screen name="Browse" component={Browse}/>
+                <MainTabNavigation.Screen name="BrowseNavigation" component={BrowseNavigation}/>
                 <MainTabNavigation.Screen name="AddDrive" component={AddDrive}/>
                 <MainTabNavigation.Screen name="Profile" component={Profile}/>
             </MainTabNavigation.Navigator>

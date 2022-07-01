@@ -1,4 +1,4 @@
 import {createStore} from 'redux'
-import {toggleLogin} from './Reducers/LoginReducer'
+import {globalDispatcher} from "./Reducers/AppReducer";
 
-export default createStore(toggleLogin)
+export default createStore(globalDispatcher)

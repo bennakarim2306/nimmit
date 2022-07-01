@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {FlatList, Text} from 'react-native'
+import {FlatList} from 'react-native'
 import { Block } from '../Components'
 import {connect} from "react-redux";
 import DriveCard from "../Components/DriveCard";
@@ -12,9 +12,9 @@ class ResultScreen extends Component {
 
 
     render() {
-        const { queryResults } = props;
+        const { queryResults } = this.props;
         return (
-            <Block center middle>
+            <Block style={{marginTop: '7%', height:'100%', width: '100%', justifyContent: 'space-between'}}>
                 <FlatList
                     data={queryResults}
                     renderItem={(driveItem) => <DriveCard drive={driveItem} />}

@@ -1,18 +1,21 @@
 import React, { Component } from 'react'
-import { KeyboardAvoidingView, Platform, StyleSheet} from 'react-native'
+import { StyleSheet} from 'react-native'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { config } from '../Config'
 
 
 export default class GooglePlaceInput extends Component {
 
+    constructor(props) {
+        super(props);
+    }
 
 
     render() {
         return (
                 <GooglePlacesAutocomplete
                     placeholder='Suche'
-                    fetchDetails={true}
+                    fetchDetails={false}
                     onPress={(data, details = null) => {
                         // 'details' is provided when fetchDetails = true
                         console.log(data);
@@ -26,15 +29,11 @@ export default class GooglePlaceInput extends Component {
                         500
                     }
                     minLength={
-                        6
+                        2
                     }
+                    styles={{textInputContainer: {position: 'absolute'},listView: {zIndex: 9999, position: 'absolute', marginTop: '10%'}}}
+                    enablePoweredByContainer={false}
                 />
         )
     }
 }
-
-const styles = StyleSheet.create({
-    KeyboardAvoiding_container: {
-      flex: 0,
-    }
-  });
