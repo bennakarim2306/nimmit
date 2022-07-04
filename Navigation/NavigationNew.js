@@ -11,15 +11,17 @@ import Login from "../Screens/Login";
 import SignUp from "../Screens/SignUp";
 import Forgot from "../Screens/Forgot";
 import Browse from "../Screens/Browse";
-import Settings from "../Screens/Settings";
 import AddDrive from "../Screens/AddDrive";
 import Profile from "../Screens/Profile";
 
 import { theme } from "../Config";
+import ResultScreen from "../Screens/ResultScreen";
+import {createDrawerNavigator} from "@react-navigation/drawer";
 
 
 const LoginStackNavigation = createStackNavigator();
-const MainTabNavigation = createBottomTabNavigator();
+const BrowseStackNavigation = createStackNavigator();
+const MainTabNavigation = createDrawerNavigator();
 const {height, width} = Dimensions.get('window');
 
 const LoginNav = () => {
@@ -33,6 +35,15 @@ const LoginNav = () => {
     )
 }
 
+const BrowseNavigation = () => {
+    return(
+        <BrowseStackNavigation.Navigator>
+            <BrowseStackNavigation.Screen name="Browse" component={Browse} options={{headerShown: false}}/>
+            <BrowseStackNavigation.Screen name="ResultScreen" component={ResultScreen} options={{headerShown: false}}/>
+        </BrowseStackNavigation.Navigator>
+    )
+}
+
 const MainNav = () => {
     return (
             <MainTabNavigation.Navigator style={{
@@ -41,7 +52,7 @@ const MainNav = () => {
             tabBarOptions={{style:{height:'5%'}}}
             sceneContainerStyle={{position: 'absolute', flex: 0, width: width, height: height}}
             >
-                <MainTabNavigation.Screen name="Browse" component={Browse}/>
+                <MainTabNavigation.Screen name="BrowseNavigation" component={BrowseNavigation}/>
                 <MainTabNavigation.Screen name="AddDrive" component={AddDrive}/>
                 <MainTabNavigation.Screen name="Profile" component={Profile}/>
             </MainTabNavigation.Navigator>
@@ -84,7 +95,8 @@ class Navigator extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isLoggedIn: state.isLoggedIn
+        isLoggedIn: state.isLoggedIn,
+        queryResults: state.queryResults
     }
 }
 

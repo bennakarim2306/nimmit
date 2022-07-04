@@ -6,6 +6,15 @@ import { theme } from "../Config";
 const GRAY_COLOR = "rgba(168, 182, 200, 0.30)";
 
 export default class SwitchInput extends React.PureComponent {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isEnabled: false
+    };
+  }
+
+
   render() {
     const { value, ...props } = this.props;
     let thumbColor = null;
@@ -17,13 +26,11 @@ export default class SwitchInput extends React.PureComponent {
 
     return (
       <Switch
-        thumbColor={thumbColor}
-        ios_backgroundColor={GRAY_COLOR}
-        trackColor={{
-          // false: GRAY_COLOR,
-          true: theme.colors.secondary
-        }}
-        value={value}
+        thumbColor={this.props.isEnabled ? theme.colors.primary : theme.colors.secondary}
+        ios_backgroundColor="#3e3e3e"
+        value={this.props.isEnabled}
+        ios_backgroundColor={theme.colors.gray}
+        onValueChange = {this.props.toggleFunction}
         {...props}
       />
     );

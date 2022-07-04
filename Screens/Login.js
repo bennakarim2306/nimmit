@@ -15,6 +15,10 @@ const VALID_EMAIL = "max_mustermann@beispiel.de";
 const VALID_PASSWORD = "passwort";
 
 class Login extends Component {
+
+  constructor(props) {
+    super(props);
+  }
   state = {
     email: VALID_EMAIL,
     password: VALID_PASSWORD,
