@@ -1,6 +1,6 @@
 export const Drives = [
     {
-        userName:'KarimBenna',
+        userName: 'KarimBenna',
         numberOfDrives: '20',
         note: '5',
         from_address: 'Lorenz-Hagen-Weg 14, München',
@@ -14,7 +14,7 @@ export const Drives = [
         id: '1'
     },
     {
-        userName:'KarimBenna',
+        userName: 'KarimBenna',
         numberOfDrives: '20',
         note: '5',
         from_address: 'Lorenz-Hagen-Weg 14, München',
@@ -26,8 +26,9 @@ export const Drives = [
         departure_time_max: '08:00',
         price: '1.5€',
         id: '2'
-    },    {
-        userName:'KarimBenna',
+    },
+    {
+        userName: 'KarimBenna',
         numberOfDrives: '20',
         note: '5',
         from_address: 'Lorenz-Hagen-Weg 14, München',
@@ -40,4 +41,4 @@ export const Drives = [
         price: '1.5€',
         id: '3'
     }
-]
+];

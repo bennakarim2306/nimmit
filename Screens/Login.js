@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import {
   ActivityIndicator,
   Keyboard,
@@ -14,23 +14,17 @@ import { theme } from "../Config";
 const VALID_EMAIL = "max_mustermann@beispiel.de";
 const VALID_PASSWORD = "passwort";
 
-class Login extends Component {
+function Login(props) {
+  const [email, setEmail] = useState(VALID_EMAIL);
+  const [password, setPassword] = useState(VALID_PASSWORD);
+  const [errors, setErrors] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  constructor(props) {
-    super(props);
-  }
-  state = {
-    email: VALID_EMAIL,
-    password: VALID_PASSWORD,
-    errors: [],
-    loading: false
-  };
-
-  static navigationOptions = {
+  const navigationOptions = {
     headerShown: false
   }
   
-  handleLogin() {
+  const handleLogin() {
     const { navigation } = this.props;
     const { email, password } = this.state;
     const errors = [];
@@ -45,7 +39,7 @@ class Login extends Component {
     if (password !== VALID_PASSWORD) {
       errors.push("password");
     }
-
+    setErrors(errors)
     this.setState({ errors, loading: false });
 
     if (!errors.length) {
@@ -57,9 +51,7 @@ class Login extends Component {
     }
   }
 
-  render() {
-    const { navigation } = this.props;
-    const { loading, errors } = this.state;
+    const { navigation } = props;
     const hasErrors = key => (errors.includes(key) ? styles.hasErrors : null);
 
     return (
@@ -112,7 +104,6 @@ class Login extends Component {
       
     );
   }
-}
 
 const styles = StyleSheet.create({
   KeyboardAvoiding_container: {
