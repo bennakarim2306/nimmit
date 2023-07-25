@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Dimensions } from "react-native";
+import { Image, Dimensions, View, TouchableOpacity, Text } from "react-native";
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -16,14 +16,11 @@ import Profile from "../Screens/Profile";
 
 import { theme } from "../Config";
 import ResultScreen from "../Screens/ResultScreen";
-import {createDrawerNavigator} from "@react-navigation/drawer";
-import { Button } from "react-native-web";
-import { NavigationActions } from "react-navigation";
 
 
 const LoginStackNavigation = createStackNavigator();
 const BrowseStackNavigation = createStackNavigator();
-const MainTabNavigation = createDrawerNavigator();
+const MainTabNavigation = createBottomTabNavigator();
 const {height, width} = Dimensions.get('window');
 
 const LoginNav = () => {
@@ -46,14 +43,64 @@ const BrowseNavigation = () => {
     )
 }
 
+const MyTabBar = ({ state, descriptors, navigation }) => {
+    return (
+      <View style={{ flexDirection: 'row', height: '8%', justifyContent: 'space-around', alignContent:'space-around'}}>
+        {state.routes.map((route, index) => {
+          const { options } = descriptors[route.key];
+          const label =
+            options.tabBarLabel !== undefined
+              ? options.tabBarLabel
+              : options.title !== undefined
+              ? options.title
+              : route.name;
+  
+          const isFocused = state.index === index;
+  
+          const onPress = () => {
+            console.log("TabBar pressed")
+            const event = navigation.emit({
+              type: 'tabPress',
+              target: route.key,
+            });
+  
+            if (!isFocused && !event.defaultPrevented) {
+              navigation.navigate(route.name);
+            }
+          };
+  
+          const onLongPress = () => {
+            navigation.emit({
+              type: 'tabLongPress',
+              target: route.key,
+            });
+          };
+  
+          return (
+            <TouchableOpacity
+              gradient
+              accessibilityRole="button"
+              accessibilityState={isFocused ? {selected: true} : {}}
+              accessibilityLabel={options.tabBarAccessibilityLabel}
+              testID={options.tabBarTestID}
+              onPress={onPress}
+              onLongPress={onLongPress}
+              style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}
+            >
+              <Text style={isFocused ? { color:'#673ab7', fontWeight: "bold", fontSize: 15} : {color: 'black', fontWeight: 'normal'}}>
+                {label}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+    );
+  }
+
 const MainNav = () => {
     return (
-            <MainTabNavigation.Navigator style={{
-                backgroundColor: 'white'
-            }}
-            sceneContainerStyle={{position: 'absolute', flex: 0, width: width, height: height}}
-            >
-                <MainTabNavigation.Screen name="Find a drive" component={BrowseNavigation} options={{headerShown: true}}/>
+            <MainTabNavigation.Navigator tabBar={props => <MyTabBar {...props} />}>
+                <MainTabNavigation.Screen name="Find a drive" component={BrowseNavigation}/>
                 <MainTabNavigation.Screen name="AddDrive" component={AddDrive}/>
                 <MainTabNavigation.Screen name="Profile" component={Profile}/>
             </MainTabNavigation.Navigator>

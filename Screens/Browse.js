@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   view_container: {
-    marginTop: "0%",
+    marginTop: "10%",
     height: "100%",
     width: "100%",
     justifyContent: "space-between",
@@ -405,7 +405,7 @@ const styles = StyleSheet.create({
     width: "90%"
   },
   query_button_container: {
-    flex: 1,
+    flex: 0.7,
     paddingLeft: '15%',
     paddingRight: '15%'
   }
