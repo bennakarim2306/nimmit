@@ -17,6 +17,8 @@ import Profile from "../Screens/Profile";
 import { theme } from "../Config";
 import ResultScreen from "../Screens/ResultScreen";
 import {createDrawerNavigator} from "@react-navigation/drawer";
+import { Button } from "react-native-web";
+import { NavigationActions } from "react-navigation";
 
 
 const LoginStackNavigation = createStackNavigator();
@@ -49,10 +51,9 @@ const MainNav = () => {
             <MainTabNavigation.Navigator style={{
                 backgroundColor: 'white'
             }}
-            tabBarOptions={{style:{height:'5%'}}}
             sceneContainerStyle={{position: 'absolute', flex: 0, width: width, height: height}}
             >
-                <MainTabNavigation.Screen name="BrowseNavigation" component={BrowseNavigation}/>
+                <MainTabNavigation.Screen name="Find a drive" component={BrowseNavigation} options={{headerShown: true}}/>
                 <MainTabNavigation.Screen name="AddDrive" component={AddDrive}/>
                 <MainTabNavigation.Screen name="Profile" component={Profile}/>
             </MainTabNavigation.Navigator>

@@ -205,7 +205,9 @@ class Browse extends Component {
                   onValueChange={(val) =>
                     this._handleSliderValueChanged(val, 1)
                   }
-                  onSlidingComplete={console.log("")}
+                  onSlidingComplete={
+                    // nothing todo here most probably
+                    () => {}}
                 />
               </Block>
               <Block style={styles.range_container}>
@@ -232,7 +234,10 @@ class Browse extends Component {
                   onValueChange={(val) =>
                     this._handleSliderValueChanged(val, 2)
                   }
-                  onSlidingComplete={console.log("")}
+                  onSlidingComplete={
+                    // nothing todo here most probably
+                    () => {}
+                  }
                 />
               </Block>
               <Block style={styles.range_container}>
@@ -341,7 +346,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   view_container: {
-    marginTop: "10%",
+    marginTop: "0%",
     height: "100%",
     width: "100%",
     justifyContent: "space-between",

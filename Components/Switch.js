@@ -29,7 +29,6 @@ export default class SwitchInput extends React.PureComponent {
         thumbColor={this.props.isEnabled ? theme.colors.primary : theme.colors.secondary}
         ios_backgroundColor="#3e3e3e"
         value={this.props.isEnabled}
-        ios_backgroundColor={theme.colors.gray}
         onValueChange = {this.props.toggleFunction}
         {...props}
       />
