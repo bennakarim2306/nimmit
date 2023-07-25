@@ -31,7 +31,7 @@ export default class GooglePlaceInput extends Component {
                     minLength={
                         2
                     }
-                    styles={{textInputContainer: {position: 'absolute'},listView: {zIndex: 9999, position: 'absolute', marginTop: '10%'}}}
+                    styles={{listView: {zIndex: 10000, position: 'absolute'}, textInputContainer: {borderWidth: 1}}}
                     enablePoweredByContainer={false}
                 />
         )
