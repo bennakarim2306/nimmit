@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { StyleSheet, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import Text from "./Text";
 import Block from "./Block";
 
@@ -16,30 +16,12 @@ export default class DriveCard extends Component {
                 <TouchableOpacity style={styles.main_container}
                                   onPress={() => console.log(`implement load film`)}
                                   key={id}>
-                    <Block style={styles.profile_container}>
-                        <Image
-                            style={styles.image}
-                            source={{uri: "image"}}
-                        />
-                        <Block style={styles.profile_data_container}>
-                            <Block style={styles.profile_userName_container}>
-                                <Text bold>
-                                    {userName}
-                                </Text>
-                            </Block>
-                            <Block style={styles.profile_drive_count_and_note_container}>
-                                <Text secondary>
-                                    {numberOfDrives}
-                                </Text>
-                                <Text secondary>
-                                    {note}
-                                </Text>
-                            </Block>
-                        </Block>
-                    </Block>
                     <Block style={styles.drive_data_container}>
                         <Block style={styles.locations_related_container}>
                             <Block style={styles.location_from_container}>
+                                <Text primary bold>
+                                    From
+                                </Text>
                                 <Text>
                                     {from_address}
                                 </Text>
@@ -48,10 +30,13 @@ export default class DriveCard extends Component {
                                 </Text>
                             </Block>
                             <Block style={styles.location_destination_container}>
-                                <Text>
+                            <Text primary bold>
+                                    To
+                                </Text>
+                                <Text secondary>
                                     {destination_address}
                                 </Text>
-                                <Text>
+                                <Text secondary>
                                     {destination_distance}
                                 </Text>
                             </Block>
@@ -59,13 +44,22 @@ export default class DriveCard extends Component {
                         <Block style={styles.time_and_price_related_container}>
                             <Block style={styles.time_related_container}>
                                 <Block style={styles.date_container}>
+                                    <Text primary bold>
+                                        Date
+                                    </Text>
                                     <Text>
                                         {date}
                                     </Text>
                                 </Block>
                                 <Block style={styles.time_container}>
+                                    <Text primary bold>
+                                        Time margin
+                                    </Text>
                                     <Text>
                                         {departure_time_min}
+                                    </Text>
+                                    <Text primary bold>
+                                        {"-->"}
                                     </Text>
                                     <Text>
                                         {departure_time_max}
@@ -88,20 +82,12 @@ const styles = StyleSheet.create({
     main_container: {
         height: 160,
         flexDirection: 'row',
-        display: 'flex'
+        borderWidth: '1px'
     },
     profile_container: {
         flex: 1,
-        backgroundColor: 'grey',
-    },
-    image: {
-        width: 60,
-        height: 90,
-        alignSelf: 'center',
-        backgroundColor: 'white'
     },
     profile_data_container: {
-        flexDirection: 'column'
     },
     profile_userName_container: {
         flex:1,
@@ -112,11 +98,9 @@ const styles = StyleSheet.create({
     },
 
     drive_data_container:{
-        flex: 3,
-        margin: 5,
     },
     locations_related_container:{
-        // flexDirection:'row',
+        flexDirection:'row',
         flex:1
     },
     location_from_container:{
@@ -140,7 +124,9 @@ const styles = StyleSheet.create({
     },
     time_container: {
       flexDirection: 'row',
-      flex: 1
+      flex: 1,
+      justifyContent: 'space-between'
+      
     },
     price_container: {
         flex: 1

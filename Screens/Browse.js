@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { StyleSheet, BackHandler, Alert } from "react-native";
-import CheckBox from "expo-checkbox";
+import { StyleSheet, BackHandler, Alert, Keyboard } from "react-native";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { Block, GooglePlaceInput, Text, Switch, Button } from "../Components";
 import DateTimePicker from "../Components/DateTimePicker";
 import { theme } from "../Config";
 import Slider from "@react-native-community/slider";
 import {connect} from "react-redux";
 import { Drives } from "../Resources/mock/Drives"
+import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 
 class Browse extends Component {
 
@@ -85,7 +86,7 @@ class Browse extends Component {
           <Text>
             Mo
           </Text>
-          <CheckBox
+          <BouncyCheckbox
             key="monday_box"
             value={false}
             onValueChange={() => { }}
@@ -96,7 +97,7 @@ class Browse extends Component {
           <Text>
             Di
           </Text>
-          <CheckBox
+          <BouncyCheckbox
             key="tuesday_box"
             value={false}
             onValueChange={() => { }}
@@ -107,7 +108,7 @@ class Browse extends Component {
           <Text>
             Mi
           </Text>
-          <CheckBox
+          <BouncyCheckbox
             key="wednesday_box"
             value={false}
             onValueChange={() => { }}
@@ -118,7 +119,7 @@ class Browse extends Component {
           <Text>
             Do
           </Text>
-          <CheckBox
+          <BouncyCheckbox
             key="thursday_box"
             value={false}
             onValueChange={() => { }}
@@ -129,7 +130,7 @@ class Browse extends Component {
           <Text>
             Fr
           </Text>
-          <CheckBox
+          <BouncyCheckbox
             key="friday_box"
             value={false}
             onValueChange={() => { }}
@@ -140,7 +141,7 @@ class Browse extends Component {
           <Text>
             Sa
           </Text>
-          <CheckBox
+          <BouncyCheckbox
             key="saturday_box"
             value={false}
             onValueChange={() => { }}
@@ -151,7 +152,7 @@ class Browse extends Component {
           <Text>
             So
           </Text>
-          <CheckBox
+          <BouncyCheckbox
             key="sunday_box"
             value={false}
             onValueChange={() => { }}
@@ -177,7 +178,7 @@ class Browse extends Component {
 
   render() {
     return (
-      <Block backgroundColor="white" style={styles.view_container}>
+      <Pressable backgroundColor="white" style={styles.view_container}  onPress={Keyboard.dismiss}>
         <Block style={styles.header_text_container}>
           <Text h1 center bold primary>
             {" "}
@@ -194,7 +195,7 @@ class Browse extends Component {
             <Block style={{ flex: 2}}>
               <GooglePlaceInput></GooglePlaceInput>
             </Block>
-            <Block style={{ flex: 1, flexDirection: "row" }}>
+            <Block style={{ flex: 1, flexDirection: "row",  }}>
               <Block style={styles.slider_container}>
                 <Slider
                   step={0}
@@ -204,7 +205,9 @@ class Browse extends Component {
                   onValueChange={(val) =>
                     this._handleSliderValueChanged(val, 1)
                   }
-                  onSlidingComplete={console.log("")}
+                  onSlidingComplete={
+                    // nothing todo here most probably
+                    () => {}}
                 />
               </Block>
               <Block style={styles.range_container}>
@@ -213,12 +216,12 @@ class Browse extends Component {
             </Block>
           </Block>
           <Block style={styles.target_adress_container}>
-            <Block style={{ flex: 1 }}>
+            <Block style={{ flex: 1}}>
               <Text h4 bold>
                 {"  "} Ziel Adresse
               </Text>
             </Block>
-            <Block style={{ flex: 2 }}>
+            <Block style={{ flex: 2}}>
               <GooglePlaceInput></GooglePlaceInput>
             </Block>
             <Block style={{ flex: 1, flexDirection: "row" }}>
@@ -231,7 +234,10 @@ class Browse extends Component {
                   onValueChange={(val) =>
                     this._handleSliderValueChanged(val, 2)
                   }
-                  onSlidingComplete={console.log("")}
+                  onSlidingComplete={
+                    // nothing todo here most probably
+                    () => {}
+                  }
                 />
               </Block>
               <Block style={styles.range_container}>
@@ -301,7 +307,7 @@ class Browse extends Component {
               </Button>
           </Block>
         </Block>
-      </Block>
+      </Pressable>
     );
   }
 }
@@ -318,12 +324,13 @@ const styles = StyleSheet.create({
     padding: "2%",
     // backgroundColor: 'grey',
     flex: 1,
+    zIndex: 99
   },
   target_adress_container: {
     flexDirection: "column",
     padding: "2%",
     // backgroundColor: 'grey',
-    flex: 1,
+    flex: 1
   },
   routine_onetime_container: {
     flexDirection: "column",
@@ -339,13 +346,12 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   view_container: {
-    zIndex: -1,
-    marginTop: "7%",
+    marginTop: "10%",
     height: "100%",
     width: "100%",
     justifyContent: "space-between",
     flexDirection: "column",
-    flex: 1,
+    flex: 1
   },
   header_text_container: {
     // borderBottomWidth: 1
@@ -354,14 +360,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   main_content_container: {
-    flex: 13,
-    zIndex: -1
+    flex: 13
   },
   slider_container: {
     // backgroundColor: 'grey',
     flex: 7,
-    width: "90%",
-    zIndex: -1
+    width: "90%"
   },
   range_container: {
     flex: 1,
@@ -379,34 +383,29 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    padding: "5%",
-    zIndex: -1
+    padding: "5%"
   },
   switch_container: {
     flex: 1,
     flexDirection: "row",
-    alignItems: "center",
-    zIndex: -1
+    alignItems: "center"
   },
   checkbox_row_container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingTop: "5%",
-    zIndex: -1
+    paddingTop: "5%"
   },
   checkbox_container: {
     flexDirection: "column",
-    alignItems: "center",
-    zIndex: -1
+    alignItems: "center"
   },
   time_slider_container: {
     // backgroundColor: 'grey',
     flex: 4,
-    width: "90%",
-    zIndex: -1
+    width: "90%"
   },
   query_button_container: {
-    flex: 1,
+    flex: 0.7,
     paddingLeft: '15%',
     paddingRight: '15%'
   }
